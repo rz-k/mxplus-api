@@ -31,3 +31,8 @@ async def update(email, data: UserUpdate=Body(), db: UserDB = Depends(get_user_d
 async def get_user(email:str, db: UserDB = Depends(get_user_db)):
     user = await db.select(email=email)
     return user
+
+@router.delete("/delete/{email}/")
+async def delete_user(email:str, db: UserDB = Depends(get_user_db)):
+    await db.delete(email=email)
+    return "ok"
