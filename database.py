@@ -142,7 +142,7 @@ class UserDB:
 
     async def update(self, email, transfer_enable, expire_in):
         try:
-            query = f"""UPDATE user SET transfer_enable='{transfer_enable}', expire_in='{expire_in}' WHERE email='{email}'"""
+            query = f"""UPDATE user SET transfer_enable='{transfer_enable}', expire_in='{expire_in}', used=0, total_data_used=0 WHERE email='{email}'"""
             pool = await aiomysql.create_pool(host=self.MYSQL_HOST, port=3306,user=self.MYSQL_USER, password=self.MYSQL_PASSWORD,db=self.MYSQL_DB, loop=loop)
             async with pool.acquire() as conn:
                 async with conn.cursor() as cur:
